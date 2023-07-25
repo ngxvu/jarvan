@@ -1,6 +1,6 @@
 # Meradia
 
-![flow.png](flow.png)
+
 
 Link: https://merakilab-space.notion.site/Update-image-flow-c4d8b7ac4f4842049d7162621943db45?pvs=4
 
@@ -28,7 +28,7 @@ Link: https://merakilab-space.notion.site/Update-image-flow-c4d8b7ac4f4842049d71
 
 ---
 # How to start source:
-- Make sure you have read the [flow](flow.png) and understand it. By now you should understand how presigned url works and how to upload image to S3. Also you should know about imageproxy https://github.com/willnorris/imageproxy  and how to use it.
+- Make sure you have read the [flow] and understand it. By now you should understand how presigned url works and how to upload image to S3. Also you should know about imageproxy https://github.com/willnorris/imageproxy  and how to use it.
 - Make sure you have the development environment matches with these notes below so we can mitigate any problems of version mismatch.
   - OS: Should use Linux (latest Ubuntu or your choice of distro) if possible. Windows does not play well with Docker and some other techs we may use. If you still prefer to use Windows, so you may have to cope with problems by yourself later since we're assuming everything will be developed and run on Linux.
   - Install Docker CE (latest) and docker-compose.

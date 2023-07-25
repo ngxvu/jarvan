@@ -33,7 +33,7 @@ type AppConfig struct {
 var config AppConfig
 
 func SetEnv() {
-	err := godotenv.Load("./.env.example")
+	err := godotenv.Load("./.env")
 	if err != nil {
 		fmt.Println(err)
 	}
