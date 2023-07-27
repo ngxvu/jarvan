@@ -18,16 +18,6 @@ type AppConfig struct {
 	DBName        string `env:"DB_NAME"`
 	EnableDB      string `env:"ENABLE_DB" envDefault:"true"`
 	DbDebugEnable bool   `env:"DB_DEBUG_ENABLE" envDefault:"true"`
-
-	// Media
-	AWSUpCloudRegion      string `env:"UC_AWS_REGION"`
-	AWSMediaDomain        string `env:"UC_AWS_MEDIA_DOMAIN"`
-	AWSMediaFullDomain    string `env:"UC_AWS_MEDIA_FULL_DOMAIN" envDefault:"https://noormatch.ap-south-1.linodeobjects.com/"`
-	AWSUpCloudAccessKeyID string `env:"UC_AWS_ACCESS_KEY_ID"`
-	AWSUpCloudSecretKey   string `env:"UC_AWS_SECRET_KEY"`
-	AWSBucket             string `env:"UC_AWS_BUCKET"`
-	AWSS3ACL              string `env:"UC_AWS_S3_ACL"`
-	MediaBaseProxyURL     string `env:"MEDIA_BASE_PROXY_URL"`
 }
 
 var config AppConfig
