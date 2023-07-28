@@ -1,4 +1,4 @@
-module gitlab.com/merakilab9/meracrawler/fortune
+module gitlab.com/merakilab9/j4
 
 go 1.19
 

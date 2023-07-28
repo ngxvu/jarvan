@@ -2,7 +2,8 @@ package pg
 
 import (
 	"context"
-	"gitlab.com/merakilab9/meracrawler/fortune/pkg/model"
+	"gitlab.com/merakilab9/j4/pkg/model"
+
 	"gorm.io/gorm"
 	"time"
 
@@ -41,14 +42,9 @@ func NewPGRepo(db *gorm.DB) PGInterface {
 
 type PGInterface interface {
 	// DB
-	DBWithTimeout(ctx context.Context) (*gorm.DB, context.CancelFunc)
-
-	CreateMedia(ctx context.Context, ob *model.Media, tx *gorm.DB) error
-	FilterMedia(ctx context.Context, f *model.MediaFilter) (*model.MediaFilterResult, error)
-	GetOneMedia(ctx context.Context, id uuid.UUID, tx *gorm.DB) (*model.Media, error)
-	UpdateMedia(ctx context.Context, update *model.Media, tx *gorm.DB) error
-	DeleteMedia(ctx context.Context, d *model.Media, tx *gorm.DB) error
-	GetRandomMedia(ctx context.Context, number int, des string, tx *gorm.DB) ([]*model.Media, error)
+	GetUrlCate() ([]model.Cate, error)
+	GetUrlShopid() ([]model.Shopid, error)
+	GetUrlItem() ([]model.Item, error)
 }
 
 func (r *RepoPG) DBWithTimeout(ctx context.Context) (*gorm.DB, context.CancelFunc) {

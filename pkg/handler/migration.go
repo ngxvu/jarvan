@@ -3,7 +3,8 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-gormigrate/gormigrate/v2"
-	"gitlab.com/merakilab9/meracrawler/fortune/pkg/model"
+	"gitlab.com/merakilab9/j4/pkg/model"
+
 	"gorm.io/gorm"
 )
 
@@ -15,19 +16,19 @@ func NewMigrationHandler(db *gorm.DB) *MigrationHandler {
 	return &MigrationHandler{db: db}
 }
 
-func (h *MigrationHandler) BaseMigrate(tx *gorm.DB) error {
-	models := []interface{}{
-		&model.Media{},
-	}
-	for _, m := range models {
-		err := tx.AutoMigrate(m)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
+//func (h *MigrationHandler) BaseMigrate(tx *gorm.DB) error {
+//	models := []interface{}{
+//		&model.Media{},
+//	}
+//	for _, m := range models {
+//		err := tx.AutoMigrate(m)
+//		if err != nil {
+//			return err
+//		}
+//	}
+//
+//	return nil
+//}
 
 func (h *MigrationHandler) Migrate(ctx *gin.Context) {
 	migrate := gormigrate.New(h.db, gormigrate.DefaultOptions, []*gormigrate.Migration{
@@ -39,7 +40,7 @@ func (h *MigrationHandler) Migrate(ctx *gin.Context) {
 				`).Error; err != nil {
 					return err
 				}
-				if err := tx.AutoMigrate(&model.Media{}); err != nil {
+				if err := tx.AutoMigrate(&model.Cate{}, &model.Shopid{}, &model.Item{}); err != nil {
 					return err
 				}
 				return nil

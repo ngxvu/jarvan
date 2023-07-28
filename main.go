@@ -2,15 +2,15 @@ package main
 
 import (
 	"context"
+	"gitlab.com/merakilab9/j4/conf"
+	"gitlab.com/merakilab9/j4/pkg/route"
+	"gitlab.com/merakilab9/j4/pkg/utils"
 	"gitlab.com/merakilab9/meracore/logger"
-	"gitlab.com/merakilab9/meracrawler/fortune/conf"
-	"gitlab.com/merakilab9/meracrawler/fortune/pkg/route"
-	"gitlab.com/merakilab9/meracrawler/fortune/pkg/utils"
 	"os"
 )
 
 const (
-	APPNAME = "4tune"
+	APPNAME = "J4"
 )
 
 func main() {
