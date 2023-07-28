@@ -1,31 +1,46 @@
 package service
 
 import (
-	"context"
-	"gitlab.com/merakilab9/meracore/ginext"
-	"gitlab.com/merakilab9/meracore/logger"
-	"gitlab.com/merakilab9/meracrawler/fortune/pkg/utils"
+	"io/ioutil"
 	"net/http"
 )
 
 type FortuneService struct {
-	client ClientServiceInterface
+	Client *http.Client
 }
 
-func NewFortuneService(client ClientServiceInterface) FortuneInterface {
-	return &FortuneService{client: client}
+func NewFortuneService(client *http.Client) FortuneInterface {
+	return &FortuneService{Client: client}
 }
 
 type FortuneInterface interface {
-	ProcessURLs(ctx context.Context, client *http.Client, urls []string) (string, error)
+	ProcessURLsCate(client *http.Client, urls []string) (string, error)
 }
 
-func (s *FortuneService) ProcessURLs(ctx context.Context, client *http.Client, urls []string) (string, error) {
-	log := logger.WithCtx(ctx, "FortuneService.ProcessURLs")
-	res, err := s.client.ProcessURLs(client, urls)
-	if err != nil {
-		log.WithError(err).Error("Error when ProcessURLs")
-		return res, ginext.NewError(http.StatusInternalServerError, utils.MessageError()[http.StatusInternalServerError])
+func (s *FortuneService) ProcessURLsCate(client *http.Client, urls []string) (string, error) {
+	method := "GET"
+	var bodies [][]byte
+	for _, url := range urls {
+		req, err := http.NewRequest(method, url, nil)
+		if err != nil {
+			return "", err
+		}
+		res, err := client.Do(req)
+		if err != nil {
+			return "", err
+		}
+		defer res.Body.Close()
+
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return "", err
+		}
+		bodies = append(bodies, body)
 	}
-	return res, nil
+
+	var result string
+	for _, body := range bodies {
+		result += string(body)
+	}
+	return result, nil
 }

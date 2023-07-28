@@ -18,16 +18,13 @@ func NewService() *Service {
 		service.NewApp("fortuneService", "v1.0"),
 	}
 	client := &http.Client{}
-
-	clientService := serviceFortune.NewClientService(client)
-	fortuneService := serviceFortune.NewFortuneService(clientService)
+	fortuneService := serviceFortune.NewFortuneService(client)
 	fortuneHandle := handlerFortune.NewFortuneHandlers(fortuneService)
 
 	pprof.Register(s.Router)
 
 	v1Api := s.Router.Group("/api/v1")
-	v1Api.POST("/parse-to-json", ginext.WrapHandler(fortuneHandle.ProcessURLs))
-	v1Api.GET("/hello", ginext.WrapHandler(fortuneHandle.HelloWorld))
+	v1Api.POST("/cate/parse-to-json", ginext.WrapHandler(fortuneHandle.ProcessURLsCate))
 
 	return s
 }

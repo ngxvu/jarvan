@@ -5,4 +5,5 @@ const (
 	MediaTypeVideo = "video"
 	MediaTypeImage = "image"
 	MediaTypeData  = "data"
+	JarvanCat      = "http://localhost:9000/jarvan/geturlcate"
 )

@@ -3,6 +3,8 @@ package utils
 import (
 	"fmt"
 	"github.com/astaxie/beego/validation"
+	"io/ioutil"
+	"net/http"
 	"strings"
 )
 
@@ -47,4 +49,19 @@ func GetMediaDirectory(mediaType, creatorId, filename string) (string, error) {
 		return "", fmt.Errorf("Media type not support")
 	}
 	return fmt.Sprintf("%s/%s/%s/%s", creatorId, mediaDir, filename), nil
+}
+
+func GetJarvanResponse(apiURL string) (string, error) {
+	resp, err := http.Get(apiURL)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	return string(body), nil
 }

@@ -2,12 +2,11 @@ package main
 
 import (
 	"context"
+	"gitlab.com/merakilab9/meracore/logger"
 	"gitlab.com/merakilab9/meracrawler/fortune/conf"
 	"gitlab.com/merakilab9/meracrawler/fortune/pkg/route"
 	"gitlab.com/merakilab9/meracrawler/fortune/pkg/utils"
 	"os"
-
-	"gitlab.com/merakilab9/meracore/logger"
 )
 
 const (

@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"encoding/json"
 	"gitlab.com/merakilab9/meracore/ginext"
+	"gitlab.com/merakilab9/meracore/logger"
 	"gitlab.com/merakilab9/meracrawler/fortune/pkg/service"
+	"gitlab.com/merakilab9/meracrawler/fortune/pkg/utils"
 	"net/http"
 )
 
@@ -15,25 +16,24 @@ func NewFortuneHandlers(service service.FortuneInterface) *FortuneHandler {
 	return &FortuneHandler{service: service}
 }
 
-func (h *FortuneHandler) ProcessURLs(r *ginext.Request) (*ginext.Response, error) {
-	client := &http.Client{}
+func (h *FortuneHandler) ProcessURLsCate(r *ginext.Request) (*ginext.Response, error) {
+	log := logger.WithCtx(r.GinCtx, "ProcessURLsCate")
+
 	var urls []string
-	err := json.NewDecoder(r.GinCtx.Request.Body).Decode(&urls)
-	if err != nil {
-		return nil, ginext.NewError(http.StatusBadRequest, err.Error())
+	if err := r.GinCtx.ShouldBindJSON(&urls); err != nil {
+		log.Println("Can not Decode Urls.", err)
+		return nil, ginext.NewError(http.StatusInternalServerError, utils.MessageError()[http.StatusBadRequest])
 	}
 
 	if len(urls) == 0 {
-		return nil, ginext.NewError(http.StatusBadRequest, err.Error())
+		log.Fatal("No URLs provided.")
+		return nil, ginext.NewError(http.StatusNotFound, "")
 	}
-
-	rs, err := h.service.ProcessURLs(r.GinCtx, client, urls)
+	client := &http.Client{}
+	rs, err := h.service.ProcessURLsCate(client, urls)
 	if err != nil {
+		log.Fatal("Fail to Process Service URLsCate.")
 		return nil, err
 	}
 	return ginext.NewResponseData(http.StatusOK, rs), nil
-}
-
-func (h *FortuneHandler) HelloWorld(r *ginext.Request) (*ginext.Response, error) {
-	return ginext.NewResponseData(http.StatusOK, "hello"), nil
 }
