@@ -40,7 +40,7 @@ func (h *MigrationHandler) Migrate(ctx *gin.Context) {
 				`).Error; err != nil {
 					return err
 				}
-				if err := tx.AutoMigrate(&model.Cate{}, &model.Shopid{}, &model.Item{}); err != nil {
+				if err := tx.AutoMigrate(&model.CateCrawl{}, &model.CateUrl{}, &model.Shopid{}); err != nil {
 					return err
 				}
 				return nil

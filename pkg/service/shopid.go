@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gitlab.com/merakilab9/j4/pkg/model"
 	"gitlab.com/merakilab9/j4/pkg/repo/pg"
+	"gitlab.com/merakilab9/j4/pkg/utils"
 )
 
 type ShopIdService struct {
@@ -19,9 +20,15 @@ type ShopIdInterface interface {
 }
 
 func (s *ShopIdService) GetUrlShopId() ([]model.Shopid, error) {
-	result, err := s.repo.GetUrlShopid()
+	result, err := utils.CategoryCrawler()
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	s.repo.SaveCate(result)
+	cats, err := s.repo.GetUrlShopid()
 	if err != nil {
 		return nil, fmt.Errorf("internal server")
 	}
-	return result, nil
+	return cats, nil
 }

@@ -15,10 +15,10 @@ func NewCateService(repo pg.PGInterface) CateInterface {
 }
 
 type CateInterface interface {
-	GetUrlCate() ([]model.Cate, error)
+	GetUrlCate() ([]model.CateUrl, error)
 }
 
-func (s *CateService) GetUrlCate() ([]model.Cate, error) {
+func (s *CateService) GetUrlCate() ([]model.CateUrl, error) {
 	result, err := s.repo.GetUrlCate()
 	if err != nil {
 		return nil, fmt.Errorf("internal server")
