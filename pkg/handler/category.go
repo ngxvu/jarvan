@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"gitlab.com/merakilab9/j4/pkg/model"
 	"gitlab.com/merakilab9/j4/pkg/service"
 	"gitlab.com/merakilab9/meracore/ginext"
 	"io/ioutil"
@@ -24,24 +25,28 @@ func (h *CateHandlers) GetUrlCate(c *ginext.Request) (*ginext.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println(rs)
 
-	//
-	url := "localhost:9002/api/v1/cate/parse-to-json"
-	method := "POST"
-
-	jsonData, err := json.Marshal(rs)
-	if err != nil {
-		return nil, err
+	data := model.RequestData{
+		rs,
 	}
 
-	client := &http.Client{}
-	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonData))
-
+	payload, err := json.Marshal(data)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
-	req.Header.Add("Content-Type", "application/json")
+
+	url := "http://localhost:7099/api/v1/cate/parse-to-json"
+	method := "POST"
+
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(payload))
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
 
 	res, err := client.Do(req)
 	if err != nil {

@@ -24,7 +24,7 @@ func (r *RepoPG) CreateShopidURL() ([]string, error) {
 		return nil, err
 	}
 
-	// Lặp qua danh sách Cate để lấy các catid và tạo URL
+	// Lặp qua danh sách Cate lấy các catid và tạo URL
 	for _, cate := range cates {
 		urlsFromCate := GetURLFromCate(cate)
 		urls = append(urls, urlsFromCate...)
@@ -48,7 +48,7 @@ func GetURLFromCate(cate model.CateCrawl) []string {
 	url := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid)
 	urls = append(urls, url)
 
-	// Lặp qua danh sách các con của Cate và gọi đệ quy để lấy các catid từ chúng
+	// Lặp qua các con của Cate
 	for _, child := range cate.Children {
 		urlsFromChild := GetURLFromCate(child)
 		urls = append(urls, urlsFromChild...)

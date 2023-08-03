@@ -16,3 +16,7 @@ type CateCrawl struct {
 type CateUrl struct {
 	Url string `json:"url" gorm:"primaryKey"`
 }
+
+type RequestData struct {
+	Data []CateUrl `json:"data"`
+}
