@@ -1,8 +1,8 @@
 FROM alpine:3.8
 
 WORKDIR /home/
-COPY wallet.bin .
-RUN chmod +x wallet.bin
+COPY J4.bin .
+RUN chmod +x J4.bin
 
-EXPOSE 8080
-CMD ["./wallet.bin"]
+EXPOSE 8085
+CMD ["./J4.bin"]
