@@ -1,8 +1,8 @@
 FROM alpine:3.8
 
 WORKDIR /home/
-COPY J4.bin .
-RUN chmod +x J4.bin
+COPY j4.bin .
+RUN chmod +x j4.bin
 
 EXPOSE 8085
-CMD ["./J4.bin"]
+CMD ["./j4.bin"]
