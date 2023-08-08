@@ -1,0 +1,25 @@
+.deploy-dev:
+  stage: development
+  services:
+    - kroniak/ssh-client
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh -tt noormatch@$HOST "export PATH=$PATH:/usr/local/go/bin && cd $GO_PATH && git checkout $BRANCH &&  git pull && $COMMAND"
+    - 'apk --no-cache add curl'
+    - 'curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\": \"-691865711\", \"text\": \"[NEW BUILD]: $(git log -1 --pretty=%B); UPLOADED, see: https://joon/-/pipelines\"}" https://api.telegram.org/bot2139136611:AAFQGsnWfh436xnj-gD7mkfUGbg6kudKkjo/sendMessage '
+
+deploy:development:
+  extends: .deploy-dev
+  variables:
+    HOST: ${STG_HOST}
+    SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY_STG}
+    GO_PATH: backend/joon
+    COMMAND: make compose_dev
+    BRANCH: development
+    SERVER_ENV: dev
+  only:
+    - development
