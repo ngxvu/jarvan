@@ -8,4 +8,9 @@ services:
     env_file: .env
     ports:
       - "8085:8085"
-
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
