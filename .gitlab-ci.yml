@@ -1,3 +1,7 @@
+stages:
+  - build
+  - deploy
+  - development
 .deploy-dev:
   stage: development
   services:
@@ -5,57 +9,7 @@
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "-----BEGIN OPENSSH PRIVATE KEY-----
-      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
-      qpHtxuzkHYENEYC/TsyM7NyZk=
-      -----END OPENSSH PRIVATE KEY-----
-      ")
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh -tt good@45.118.132.204 "cd jarvan/ && git pull && make compose_dev"
@@ -67,7 +21,7 @@ deploy:development:
     SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY_STG}
     GO_PATH: backend/joon
     COMMAND: make compose_dev
-    BRANCH: development
+    BRANCH: develop
     SERVER_ENV: dev
   only:
     - development
