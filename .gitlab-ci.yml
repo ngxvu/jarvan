@@ -11,7 +11,7 @@ stages:
     - echo "$SSH_PRIVATE_KEY_STG" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ssh -o PreferredAuthentications=admin@123 -tt good@45.118.132.204 "cd jarvan && git checkout develop && git pull && make compose_dev"
+    - ssh -tt good@45.118.132.204 "cd jarvan && git checkout develop && git pull && make compose_dev"
 
 
 deploy:development:
