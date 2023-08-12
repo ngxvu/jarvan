@@ -8,7 +8,7 @@ stages:
   script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$SSH_PRIVATE_KEY_STG")
+    - echo "$SSH_PRIVATE_KEY_STG" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - ssh -tt good@45.118.132.204 "cd jarvan && git checkout develop && git pull && make compose_dev"
