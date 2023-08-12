@@ -17,6 +17,6 @@ stages:
 deploy:development:
   extends: .deploy-development
   variables:
-    SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY_STG}
+    SSH_PRIVATE_KEY_STG: ${SSH_PRIVATE_KEY}
   only:
     - develop
