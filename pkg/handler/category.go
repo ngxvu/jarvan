@@ -25,7 +25,6 @@ func (h *CateHandlers) GetUrlCate(c *ginext.Request) (*ginext.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(rs)
 
 	data := model.RequestData{
 		rs,

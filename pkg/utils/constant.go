@@ -1,9 +1,6 @@
 package utils
 
 const (
-	MediaTypeAudio = "audio"
-	MediaTypeVideo = "video"
-	MediaTypeImage = "image"
-	MediaTypeData  = "data"
-	JarvanCat      = "http://localhost:9000/jarvan/geturlcate"
+	RedisAddr       = "127.0.0.1:6379"
+	APICateDelivery = "APICate:Delivery"
 )
