@@ -1,8 +1,8 @@
 stages:
-  - develop
+  - deploy
 
 .deploy-development:
-  stage: develop
+  stage: deploy
   services:
     - kroniak/ssh-client
   script:
