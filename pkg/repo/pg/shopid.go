@@ -93,8 +93,26 @@ func GetURLFromCate(cate model.CateCrawl) []string {
 	url8 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=200"
 	url9 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=225"
 	url10 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=250"
+	url11 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=275"
+	url12 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=300"
+	url13 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=325"
+	url14 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=350"
+	url15 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=375"
+	url16 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=400"
+	url17 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=425"
+	url18 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=450"
+	url19 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=475"
+	url20 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=500"
+	url21 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=525"
+	url22 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=550"
+	url23 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=575"
+	url24 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=600"
+	url25 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=625"
+	url26 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=650"
+	url27 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=675"
+	url28 := "https://shopee.vn/api/v4/official_shop/get_shops?category_id=" + strconv.Itoa(cate.Catid) + "&limit=25&offset=700"
 
-	urls = append(urls, url, url1, url2, url3, url4, url5, url6, url7, url8, url9, url10)
+	urls = append(urls, url, url1, url2, url3, url4, url5, url6, url7, url8, url9, url10, url11, url12, url13, url14, url15, url16, url17, url18, url19, url20, url21, url22, url23, url24, url25, url26, url27, url28)
 
 	// Lặp qua các con của Cate
 	for _, child := range cate.Children {
