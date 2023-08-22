@@ -46,6 +46,8 @@ type PGInterface interface {
 	GetUrlShopid() ([]model.ShopIdUrl, error)
 	GetUrlItem() ([]model.Item, error)
 	SaveCate(result model.CrawlCate) error
+	SaveShopID(result model.DataShopidCrawled) error
+	GetUrlShopDetails() ([]model.ShopDetail, error)
 }
 
 func (r *RepoPG) DBWithTimeout(ctx context.Context) (*gorm.DB, context.CancelFunc) {

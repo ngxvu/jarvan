@@ -2,6 +2,7 @@ package pg
 
 import (
 	"gitlab.com/merakilab9/j4/pkg/model"
+	"log"
 	"strconv"
 )
 
@@ -14,6 +15,17 @@ func (r *RepoPG) GetUrlShopid() ([]model.ShopIdUrl, error) {
 	}
 
 	return shopid, nil
+}
+
+func (r *RepoPG) GetUrlShopDetails() ([]model.ShopDetail, error) {
+	r.CreateShopDetailsURL()
+	var shopdetails []model.ShopDetail
+
+	if err := r.DB.Find(&shopdetails).Error; err != nil {
+		return nil, err
+	}
+
+	return shopdetails, nil
 }
 
 func (r *RepoPG) CreateShopidURL() ([]string, error) {
@@ -34,6 +46,31 @@ func (r *RepoPG) CreateShopidURL() ([]string, error) {
 	for _, url := range urls {
 		shopid := model.ShopIdUrl{Url: url}
 		if err := r.DB.Create(&shopid).Error; err != nil {
+			return nil, err
+		}
+	}
+
+	return urls, nil
+}
+
+func (r *RepoPG) CreateShopDetailsURL() ([]string, error) {
+	var shops []model.OfficialShop
+	var urls []string
+
+	if err := r.DB.Find(&shops).Error; err != nil {
+		return nil, err
+	}
+
+	// Lặp qua danh sách Offical shop lấy các shopid và tạo URL
+	for _, shopid := range shops {
+		urlsFromShop := GetURLFromShop(shopid)
+		urls = append(urls, urlsFromShop...)
+	}
+
+	// Lưu các URL vào bảng ShopDeatils
+	for _, url := range urls {
+		shopdetails := model.ShopDetail{Url: url}
+		if err := r.DB.Create(&shopdetails).Error; err != nil {
 			return nil, err
 		}
 	}
@@ -66,4 +103,27 @@ func GetURLFromCate(cate model.CateCrawl) []string {
 	}
 
 	return urls
+}
+
+func GetURLFromShop(shop model.OfficialShop) []string {
+	var urls []string
+
+	// Lấy shopid tu Officalshop và tạo URL cho từng shopid
+	url := "https://shopee.vn/api/v4/product/get_shop_info?shopid=" + strconv.Itoa(shop.Shopid)
+
+	urls = append(urls, url)
+	return urls
+}
+
+func (r *RepoPG) SaveShopID(result model.DataShopidCrawled) error {
+	shopids := result.Data.OfficialShops
+
+	for _, shopid := range shopids {
+		err := r.DB.Create(&shopid).Error
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
+	return nil
 }

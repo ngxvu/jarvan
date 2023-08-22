@@ -48,6 +48,8 @@ func NewService() *Service {
 
 	v1Api.GET("/shopee/get-shopid-url", ginext.WrapHandler(shopIdHandler.GetUrlShopId))
 
+	v1Api.GET("/shopee/get-shopdetails-url", ginext.WrapHandler(shopIdHandler.GetUrlShopDetails))
+
 	v1Api.GET("/shopee/get-item-url", ginext.WrapHandler(itemHandler.GetUrlItem))
 
 	return s
