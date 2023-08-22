@@ -43,7 +43,7 @@ func NewPGRepo(db *gorm.DB) PGInterface {
 type PGInterface interface {
 	// DB
 	GetUrlCate() ([]model.CateUrl, error)
-	GetUrlShopid() ([]model.Shopid, error)
+	GetUrlShopid() ([]model.ShopIdUrl, error)
 	GetUrlItem() ([]model.Item, error)
 	SaveCate(result model.CrawlCate) error
 }

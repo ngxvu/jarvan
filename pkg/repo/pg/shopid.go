@@ -5,9 +5,9 @@ import (
 	"strconv"
 )
 
-func (r *RepoPG) GetUrlShopid() ([]model.Shopid, error) {
+func (r *RepoPG) GetUrlShopid() ([]model.ShopIdUrl, error) {
 	r.CreateShopidURL()
-	var shopid []model.Shopid
+	var shopid []model.ShopIdUrl
 
 	if err := r.DB.Find(&shopid).Error; err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func (r *RepoPG) CreateShopidURL() ([]string, error) {
 
 	// Lưu các URL vào bảng Shopid
 	for _, url := range urls {
-		shopid := model.Shopid{Url: url}
+		shopid := model.ShopIdUrl{Url: url}
 		if err := r.DB.Create(&shopid).Error; err != nil {
 			return nil, err
 		}

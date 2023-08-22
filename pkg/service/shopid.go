@@ -16,10 +16,10 @@ func NewShopIdService(repo pg.PGInterface) ShopIdInterface {
 }
 
 type ShopIdInterface interface {
-	GetUrlShopId() ([]model.Shopid, error)
+	GetUrlShopId() ([]model.ShopIdUrl, error)
 }
 
-func (s *ShopIdService) GetUrlShopId() ([]model.Shopid, error) {
+func (s *ShopIdService) GetUrlShopId() ([]model.ShopIdUrl, error) {
 	result, err := utils.CategoryCrawler()
 	if err != nil {
 		fmt.Println(err)
