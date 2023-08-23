@@ -25,49 +25,66 @@ type ShopIdInterface interface {
 
 func (s *ShopIdService) GetUrlShopId() ([]model.ShopIdUrl, error) {
 	//b1
+	cats, err := s.repo.GetUrlShopid()
+	if err != nil {
+		return nil, fmt.Errorf("internal server")
+	}
+	if len(cats) > 0 {
+		return cats, nil
+	}
+	//b2
 	result, err := utils.CategoryCrawler()
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
-	//b2
-	s.repo.SaveCate(result)
 	//b3
-	urls, err := s.repo.GetCateid()
+	s.repo.SaveCate(result)
 	//b4
-	s.repo.CreateShopidURL(urls)
+	urls, err := s.repo.GetCateid()
 	//b5
-	cats, err := s.repo.GetUrlShopid()
+	s.repo.CreateShopidURL(urls)
+	//b6
+	updatecats, err := s.repo.GetUrlShopid()
 	if err != nil {
 		return nil, fmt.Errorf("internal server")
 	}
-	return cats, nil
+	return updatecats, nil
 }
 
 func (s *ShopIdService) GetUrlShopDetails() ([]model.ShopDetail, error) {
 	//b1
+	shops, err := s.repo.GetUrlShopDetails()
+	if err != nil {
+		return nil, fmt.Errorf("internal server")
+	}
+	if len(shops) > 0 {
+		return shops, nil
+	}
+	//b2
+
 	result, err := s.ShopIdCrawl()
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
-	//b2
+	//b3
 	for _, data := range result {
 		err := s.repo.SaveShopID(data)
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
-	//b3
-	urls, err := s.repo.GetShopID()
 	//b4
-	s.repo.CreateShopDetailsURL(urls)
+	urls, err := s.repo.GetShopID()
 	//b5
-	shops, err := s.repo.GetUrlShopDetails()
+	s.repo.CreateShopDetailsURL(urls)
+	//b6
+	updateshops, err := s.repo.GetUrlShopDetails()
 	if err != nil {
 		return nil, fmt.Errorf("internal server")
 	}
-	return shops, nil
+	return updateshops, nil
 }
 
 func (s *ShopIdService) ShopIdCrawl() ([]model.DataShopidCrawled, error) {
