@@ -7,7 +7,6 @@ import (
 )
 
 func (r *RepoPG) GetUrlShopid() ([]model.ShopIdUrl, error) {
-	r.CreateShopidURL()
 	var shopid []model.ShopIdUrl
 
 	if err := r.DB.Find(&shopid).Error; err != nil {
@@ -18,7 +17,6 @@ func (r *RepoPG) GetUrlShopid() ([]model.ShopIdUrl, error) {
 }
 
 func (r *RepoPG) GetUrlShopDetails() ([]model.ShopDetail, error) {
-	r.CreateShopDetailsURL()
 	var shopdetails []model.ShopDetail
 
 	if err := r.DB.Find(&shopdetails).Error; err != nil {
@@ -28,7 +26,19 @@ func (r *RepoPG) GetUrlShopDetails() ([]model.ShopDetail, error) {
 	return shopdetails, nil
 }
 
-func (r *RepoPG) CreateShopidURL() ([]string, error) {
+func (r *RepoPG) CreateShopidURL(urls []string) ([]string, error) {
+
+	// Lưu các URL vào bảng Shopid
+	for _, url := range urls {
+		shopid := model.ShopIdUrl{Url: url}
+		if err := r.DB.Create(&shopid).Error; err != nil {
+			return nil, err
+		}
+	}
+
+	return urls, nil
+}
+func (r *RepoPG) GetCateid() ([]string, error) {
 	var cates []model.CateCrawl
 	var urls []string
 
@@ -41,11 +51,15 @@ func (r *RepoPG) CreateShopidURL() ([]string, error) {
 		urlsFromCate := GetURLFromCate(cate)
 		urls = append(urls, urlsFromCate...)
 	}
+	return urls, nil
+}
 
-	// Lưu các URL vào bảng Shopid
+func (r *RepoPG) CreateShopDetailsURL(urls []string) ([]string, error) {
+
+	// Lưu các URL vào bảng ShopDeatils
 	for _, url := range urls {
-		shopid := model.ShopIdUrl{Url: url}
-		if err := r.DB.Create(&shopid).Error; err != nil {
+		shopdetails := model.ShopDetail{Url: url}
+		if err := r.DB.Create(&shopdetails).Error; err != nil {
 			return nil, err
 		}
 	}
@@ -53,7 +67,7 @@ func (r *RepoPG) CreateShopidURL() ([]string, error) {
 	return urls, nil
 }
 
-func (r *RepoPG) CreateShopDetailsURL() ([]string, error) {
+func (r *RepoPG) GetShopID() ([]string, error) {
 	var shops []model.OfficialShop
 	var urls []string
 
@@ -66,15 +80,6 @@ func (r *RepoPG) CreateShopDetailsURL() ([]string, error) {
 		urlsFromShop := GetURLFromShop(shopid)
 		urls = append(urls, urlsFromShop...)
 	}
-
-	// Lưu các URL vào bảng ShopDeatils
-	for _, url := range urls {
-		shopdetails := model.ShopDetail{Url: url}
-		if err := r.DB.Create(&shopdetails).Error; err != nil {
-			return nil, err
-		}
-	}
-
 	return urls, nil
 }
 
