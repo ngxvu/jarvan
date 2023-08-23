@@ -14,10 +14,12 @@ import (
 
 type CateHandlers struct {
 	service service.CateInterface
+	client  *asynq.Client
 }
 
 func NewCateHandlers(service service.CateInterface) *CateHandlers {
-	return &CateHandlers{service: service}
+	client := asynq.NewClient(asynq.RedisClientOpt{Addr: utils.RedisAddr})
+	return &CateHandlers{service: service, client: client}
 }
 
 func (h *CateHandlers) GetUrlCate(c *ginext.Request) (*ginext.Response, error) {
@@ -32,9 +34,6 @@ func (h *CateHandlers) GetUrlCate(c *ginext.Request) (*ginext.Response, error) {
 }
 
 func (h *CateHandlers) SendAPIToQueue(c *ginext.Request) (*ginext.Response, error) {
-
-	client := asynq.NewClient(asynq.RedisClientOpt{Addr: utils.RedisAddr})
-	defer client.Close()
 
 	//=================== MssBroker ===================//
 
@@ -56,12 +55,11 @@ func (h *CateHandlers) SendAPIToQueue(c *ginext.Request) (*ginext.Response, erro
 	task := asynq.NewTask(utils.APICateDelivery, payload4tune)
 	log.Printf(" Create tasks: %v", err)
 
-	info, err := client.Enqueue(task)
+	info, err := h.client.Enqueue(task)
 	if err != nil {
 		log.Fatalf("could not enqueue tasks: %v", err)
 	}
 	log.Printf("enqueued tasks: id=%s queue=%s", info.ID, info.Queue)
 
 	return ginext.NewResponseData(http.StatusOK, rs), nil
-
 }

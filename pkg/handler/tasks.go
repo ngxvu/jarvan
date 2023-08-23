@@ -13,10 +13,6 @@ type CateHandlersQueue struct {
 	service service.CateInterface
 }
 
-func NewSendAPIToQueueHandlers(service service.CateInterface) *CateHandlersQueue {
-	return &CateHandlersQueue{service: service}
-}
-
 func (h *CateHandlersQueue) NewAPIDeliveryTask() (*asynq.Task, error) {
 
 	rs, err := h.service.GetUrlCate()

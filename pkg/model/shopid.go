@@ -19,3 +19,7 @@ type ShopIdUrl struct {
 type ShopDetail struct {
 	Url string `json:"url" gorm:"primaryKey"`
 }
+
+type RequestDataShopDetail struct {
+	Data []ShopDetail `json:"data"`
+}

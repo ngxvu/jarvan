@@ -44,6 +44,8 @@ func NewService() *Service {
 	// mess queue //
 	v1Api.GET("/shopee/send-api-to-queue", ginext.WrapHandler(cateHandler.SendAPIToQueue))
 
+	v1Api.GET("/shopee/send-shop-details-api-to-queue", ginext.WrapHandler(shopIdHandler.SendShopDetailsAPIToQueue))
+
 	// http//
 	v1Api.GET("/shopee/get-cate-url", ginext.WrapHandler(cateHandler.GetUrlCate))
 
