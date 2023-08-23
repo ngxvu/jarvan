@@ -25,5 +25,4 @@ func main() {
 		logger.Tag("main").Error(err)
 	}
 	os.Clearenv()
-
 }

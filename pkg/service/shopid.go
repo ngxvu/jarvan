@@ -24,12 +24,19 @@ type ShopIdInterface interface {
 }
 
 func (s *ShopIdService) GetUrlShopId() ([]model.ShopIdUrl, error) {
+	//b1
 	result, err := utils.CategoryCrawler()
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
+	//b2
 	s.repo.SaveCate(result)
+	//b3
+	urls, err := s.repo.GetCateid()
+	//b4
+	s.repo.CreateShopidURL(urls)
+	//b5
 	cats, err := s.repo.GetUrlShopid()
 	if err != nil {
 		return nil, fmt.Errorf("internal server")
@@ -38,18 +45,24 @@ func (s *ShopIdService) GetUrlShopId() ([]model.ShopIdUrl, error) {
 }
 
 func (s *ShopIdService) GetUrlShopDetails() ([]model.ShopDetail, error) {
-
+	//b1
 	result, err := s.ShopIdCrawl()
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
+	//b2
 	for _, data := range result {
 		err := s.repo.SaveShopID(data)
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
+	//b3
+	urls, err := s.repo.GetShopID()
+	//b4
+	s.repo.CreateShopDetailsURL(urls)
+	//b5
 	shops, err := s.repo.GetUrlShopDetails()
 	if err != nil {
 		return nil, fmt.Errorf("internal server")
