@@ -41,12 +41,15 @@ func NewService() *Service {
 
 	v1Api := s.Router.Group("/api/v1")
 	v1Api.POST("/internal/migrate", migrateHandler.Migrate)
-	// messqueue //
+	// mess queue //
 	v1Api.GET("/shopee/send-api-to-queue", ginext.WrapHandler(cateHandler.SendAPIToQueue))
 
+	// http//
 	v1Api.GET("/shopee/get-cate-url", ginext.WrapHandler(cateHandler.GetUrlCate))
 
 	v1Api.GET("/shopee/get-shopid-url", ginext.WrapHandler(shopIdHandler.GetUrlShopId))
+
+	v1Api.GET("/shopee/get-shopdetails-url", ginext.WrapHandler(shopIdHandler.GetUrlShopDetails))
 
 	v1Api.GET("/shopee/get-item-url", ginext.WrapHandler(itemHandler.GetUrlItem))
 

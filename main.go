@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"gitlab.com/merakilab9/j4/conf"
 	"gitlab.com/merakilab9/j4/pkg/route"
 	"gitlab.com/merakilab9/j4/pkg/utils"
@@ -25,4 +26,6 @@ func main() {
 		logger.Tag("main").Error(err)
 	}
 	os.Clearenv()
+	fmt.Println("testttttttt")
+
 }

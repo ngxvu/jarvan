@@ -23,3 +23,13 @@ func (h *ShopIdHandlers) GetUrlShopId(c *ginext.Request) (*ginext.Response, erro
 
 	return ginext.NewResponseData(http.StatusOK, rs), nil
 }
+
+func (h *ShopIdHandlers) GetUrlShopDetails(c *ginext.Request) (*ginext.Response, error) {
+
+	rs, err := h.service.GetUrlShopDetails()
+	if err != nil {
+		return nil, err
+	}
+
+	return ginext.NewResponseData(http.StatusOK, rs), nil
+}

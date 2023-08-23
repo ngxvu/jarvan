@@ -6,6 +6,10 @@ import (
 )
 
 func (r *RepoPG) GetUrlCate() ([]model.CateUrl, error) {
+
+	newCateUrl := model.CateUrl{Url: "https://shopee.vn/api/v4/pages/get_category_tree"}
+	r.DB.Create(newCateUrl)
+
 	var cateUrls []model.CateUrl
 
 	if err := r.DB.Find(&cateUrls).Error; err != nil {

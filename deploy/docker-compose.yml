@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  wallet:
+    container_name: j4
+    image: "j4:0.0.1"
+    hostname: j4
+    restart: always
+    env_file: .env
+    ports:
+      - "8085:8085"
+  db:
+    build:
+      context: ./db
+      dockerfile: dockerfile
+    ports:
+      - "5432:5432"

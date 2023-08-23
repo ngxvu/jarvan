@@ -43,9 +43,11 @@ func NewPGRepo(db *gorm.DB) PGInterface {
 type PGInterface interface {
 	// DB
 	GetUrlCate() ([]model.CateUrl, error)
-	GetUrlShopid() ([]model.Shopid, error)
+	GetUrlShopid() ([]model.ShopIdUrl, error)
 	GetUrlItem() ([]model.Item, error)
 	SaveCate(result model.CrawlCate) error
+	SaveShopID(result model.DataShopidCrawled) error
+	GetUrlShopDetails() ([]model.ShopDetail, error)
 }
 
 func (r *RepoPG) DBWithTimeout(ctx context.Context) (*gorm.DB, context.CancelFunc) {
