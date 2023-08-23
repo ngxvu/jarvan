@@ -16,20 +16,6 @@ func NewMigrationHandler(db *gorm.DB) *MigrationHandler {
 	return &MigrationHandler{db: db}
 }
 
-//func (h *MigrationHandler) BaseMigrate(tx *gorm.DB) error {
-//	models := []interface{}{
-//		&model.Media{},
-//	}
-//	for _, m := range models {
-//		err := tx.AutoMigrate(m)
-//		if err != nil {
-//			return err
-//		}
-//	}
-//
-//	return nil
-//}
-
 func (h *MigrationHandler) Migrate(ctx *gin.Context) {
 	migrate := gormigrate.New(h.db, gormigrate.DefaultOptions, []*gormigrate.Migration{
 		{
