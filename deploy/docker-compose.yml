@@ -1,16 +1,26 @@
-version: '3.8'
+version: '1.0.0'
 services:
-  wallet:
-    container_name: j4
-    image: "j4:0.0.1"
-    hostname: j4
+  j4:
+    container_name: jarvancrawler
+    image: "jarvancrawler:0.0.1"
+    hostname: jarvancrawler.local
     restart: always
-    env_file: .env
+    environment:
+      - APP_ENV=env
+      - PORT=9001
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=547436
+      - DB_NAME=jarvan
+      - ENABLE_DB=true
     ports:
-      - "8085:8085"
-  db:
-    build:
-      context: ./db
-      dockerfile: dockerfile
+      - "9001:9001"
+  postgresdb:
+    image: postgres:15.4
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=547436
+      - POSTGRES_DB=jarvan
     ports:
-      - "5432:5432"
+      - 5432:5432

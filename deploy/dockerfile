@@ -1,8 +1,9 @@
-FROM alpine:3.8
+FROM golang:1.21.0-bullseye AS webapp
 
-WORKDIR /home/
-COPY j4.bin .
-RUN chmod +x j4.bin
+WORKDIR /jarvan/
+COPY jarvancrawler.bin .
+RUN chmod +x jarvancrawler.bin
 
-EXPOSE 8085
-CMD ["./j4.bin"]
+EXPOSE 9001
+CMD ["./jarvancrawler.bin"]
+
