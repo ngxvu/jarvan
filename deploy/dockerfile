@@ -2,6 +2,7 @@ FROM golang:1.21.0-bullseye AS webapp
 
 WORKDIR /jarvan/
 COPY jarvancrawler.bin .
+COPY .env .
 RUN chmod +x jarvancrawler.bin
 
 EXPOSE 9001
