@@ -52,9 +52,10 @@ func (h *CateHandlers) SendAPIToQueue(c *ginext.Request) (*ginext.Response, erro
 		return nil, err
 	}
 
-	task := asynq.NewTask(utils.APICateDelivery, payload4tune)
-	log.Printf(" Create tasks: %v", err)
-
+	task := asynq.NewTask(utils.APICateDelivery, payload4tune, asynq.Queue("default"))
+	if err != nil {
+		log.Printf(" could not create task: %v", err)
+	}
 	info, err := h.client.Enqueue(task)
 	if err != nil {
 		log.Fatalf("could not enqueue tasks: %v", err)

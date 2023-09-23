@@ -50,7 +50,7 @@ func (h *ShopIdHandlers) SendShopDetailsAPIToQueue(c *ginext.Request) (*ginext.R
 	for _, v := range rs {
 		data4tune := v.Url
 		payload4tune, _ := json.Marshal(data4tune)
-		task := asynq.NewTask(utils.APIShopDetailsDelivery, payload4tune)
+		task := asynq.NewTask(utils.APIShopDetailsDelivery, payload4tune, asynq.Queue("priority"))
 		log.Printf(" Create tasks: %v", err)
 
 		info, err := h.client.Enqueue(task)
